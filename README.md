@@ -1,4 +1,7 @@
 # The Samtools application as a Singularity container
+
+[![DOI](https://zenodo.org/badge/107651060.svg)](https://zenodo.org/badge/latestdoi/107651060)
+
 A singularity container for the [Samtools](http://www.htslib.org/) tool to be used in several analysis pipelines at QBIC. We use specific tags for releasing updated containers, so stay tuned :-) 
 
 ## Creating the container
