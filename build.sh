@@ -7,7 +7,7 @@ SAMTOOLS_VERSION=1.6
 
 #Add here what kind of dependencies you need in general
 #Check for packages here: https://pkgs.alpinelinux.org/packages
-apk --update add wget ca-certificates zlib-dev libbz2 bzip2-dev xz-dev xz-libs build-base ncurses ncurses-dev
+apk --update add bash wget ca-certificates zlib-dev libbz2 bzip2-dev xz-dev xz-libs build-base ncurses ncurses-dev
 mkdir /build
 cd /build
 wget https://github.com/samtools/samtools/releases/download/$SAMTOOLS_VERSION/samtools-$SAMTOOLS_VERSION.tar.bz2
