@@ -1,24 +1,57 @@
-# The Samtools application as a Singularity container
+# Local Setup
 
-[![DOI](https://zenodo.org/badge/107651060.svg)](https://zenodo.org/badge/latestdoi/107651060)
+## Install Singularity
 
-A singularity container for the [Samtools](http://www.htslib.org/) tool to be used in several analysis pipelines at QBIC. We use specific tags for releasing updated containers, so stay tuned :-) 
+http://singularity.lbl.gov/install-mac
 
-## Creating the container
+Assuming you are using a Mac;
 
-To create the container from scratch, run for example:
-
-```bash
-git clone https://github.com/qbicsoftware/qbic-containers
-cd qbic-containers/samtools
-sudo singularity build singularity-container-samtools Singularity
+```
+brew cask install virtualbox
+brew cask install vagrant
+brew cask install vagrant-manager
 ```
 
-## Running the containers applications
+Vagrant had issues installing, can also use this one:
 
-```bash
-singularity exec singularity-container-samtools samtools
+https://releases.hashicorp.com/vagrant/2.0.1/vagrant_2.0.1_x86_64.dmg
+
+## Setup Vagrant Singularity VM
+
 ```
-Check out our nextflow workflow scripts to see how we utilize the container directly on our infrastructure. 
+mkdir singularity-vm
+cd singularity-vm
 
-If you have further questions, ask here via GitHub or alexander.peltzer@qbic.uni-tuebingen.de
+vagrant init singularityware/singularity-2.4
+vagrant up
+vagrant ssh
+```
+
+## Get Container Recipe
+
+A recipe for a `samtools` container is included, taken from here: https://github.com/qbicsoftware/qbic-singularity-samtools.git
+
+
+
+# Notes
+
+```
+sudo singularity build singularity-container-samtools Singularity.latest
+
+# singularity exec singularity-container-bwa bwa mem -M -v 1 ./hg19_genome.fa NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R1_001.fastq.gz NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R2_001.fastq.gz
+# singularity shell -B /data:./ singularity-container-bwa
+```
+
+# Resources
+
+http://singularity.lbl.gov/docs-build-container
+
+https://github.com/qbicsoftware/qbic-singularity-samtools
+
+https://app.vagrantup.com/singularityware/boxes/singularity-2.4
+
+some container collections here
+
+https://singularity-hub.org/u/apeltzer
+
+https://singularity-hub.org/collections/93
