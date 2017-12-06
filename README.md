@@ -18,7 +18,9 @@ https://releases.hashicorp.com/vagrant/2.0.1/vagrant_2.0.1_x86_64.dmg
 
 ## Setup Vagrant Singularity VM
 
-```
+Start the Vagrant VM and `ssh` into it
+
+```bash
 mkdir singularity-vm
 cd singularity-vm
 
@@ -27,15 +29,28 @@ vagrant up
 vagrant ssh
 ```
 
-## Get Container Recipe
+## Creating the Container
 
-A recipe for a `samtools` container is included, taken from here: https://github.com/qbicsoftware/qbic-singularity-samtools.git
+Build the included `samtools` recipe
 
+```bash
+git clone https://github.com/stevekm/singularity-samtools-demo.git
+
+cd singularity-samtools-demo
+
+sudo singularity build singularity-container-samtools Singularity
+```
+
+## Running the Container Application
+
+```bash
+singularity exec singularity-container-samtools samtools view input/HapMap-B17-1267.bam
+```
 
 
 # Notes
 
-```
+```bash
 sudo singularity build singularity-container-samtools Singularity.latest
 
 # singularity exec singularity-container-bwa bwa mem -M -v 1 ./hg19_genome.fa NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R1_001.fastq.gz NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R2_001.fastq.gz
@@ -44,11 +59,15 @@ sudo singularity build singularity-container-samtools Singularity.latest
 
 # Resources
 
+https://app.vagrantup.com/singularityware/boxes/singularity-2.4
+
 http://singularity.lbl.gov/docs-build-container
+
+http://singularity.lbl.gov/docs-recipes
+
 
 https://github.com/qbicsoftware/qbic-singularity-samtools
 
-https://app.vagrantup.com/singularityware/boxes/singularity-2.4
 
 some container collections here
 
