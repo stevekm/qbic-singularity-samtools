@@ -43,14 +43,18 @@ singularity-vm/image/singularity-container-samtools: vagrant-installed singulari
 	cd singularity-vm && \
 	vagrant up && \
 	vagrant ssh -c 'cd /image && sudo singularity build singularity-container-samtools Singularity'
-	# vagrant ssh -c 'singularity exec /image/stevekm_fastqc-*.img fastqc --version'
 
 singularity-vm/image/samtools-version.txt: singularity-vm/image/singularity-container-samtools
 	cd singularity-vm && \
 	vagrant up && \
 	vagrant ssh -c 'cd /image && singularity exec singularity-container-samtools samtools --version' > image/samtools-version.txt
 
+
+container: singularity-vm/image/singularity-container-samtools
+
+
 test: singularity-vm/image/samtools-version.txt
+
 
 
 
