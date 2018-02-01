@@ -1,24 +1,20 @@
-# The Samtools application as a Singularity container
+# Notes
 
-[![DOI](https://zenodo.org/badge/107651060.svg)](https://zenodo.org/badge/latestdoi/107651060)
-
-A singularity container for the [Samtools](http://www.htslib.org/) tool to be used in several analysis pipelines at QBIC. We use specific tags for releasing updated containers, so stay tuned :-) 
-
-## Creating the container
-
-To create the container from scratch, run for example:
+Need to figure out how to deal with binding paths...
 
 ```bash
-git clone https://github.com/qbicsoftware/qbic-containers
-cd qbic-containers/samtools
-sudo singularity build singularity-container-samtools Singularity
+singularity exec singularity-container-bwa bwa mem -M -v 1 ./hg19_genome.fa NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R1_001.fastq.gz NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R2_001.fastq.gz
+ singularity shell -B /data:./ singularity-container-bwa
 ```
 
-## Running the containers applications
+
+## Running the Container Application
 
 ```bash
-singularity exec singularity-container-samtools samtools
-```
-Check out our nextflow workflow scripts to see how we utilize the container directly on our infrastructure. 
+singularity exec singularity-container-samtools samtools --version
+# samtools 1.6
+# Using htslib 1.6
+# Copyright (C) 2017 Genome Research Ltd.
 
-If you have further questions, ask here via GitHub or alexander.peltzer@qbic.uni-tuebingen.de
+singularity exec singularity-container-samtools samtools view input/HapMap-B17-1267.bam
+```

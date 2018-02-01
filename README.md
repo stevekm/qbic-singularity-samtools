@@ -1,81 +1,56 @@
-# Local Setup
+# Setup
 
-## Install Singularity
+This assumes you are building a Singularity container locally on a Mac
 
-http://singularity.lbl.gov/install-mac
-
-Assuming you are using a Mac;
-
+Make sure you've already installed Vagrant, since its needed to run Singularity on a Mac
 ```
 brew cask install virtualbox
 brew cask install vagrant
 brew cask install vagrant-manager
 ```
 
-Vagrant had issues installing, can also use this one:
+If you have trouble install Vagrant with homebrew, try using [this](https://releases.hashicorp.com/vagrant/2.0.1/vagrant_2.0.1_x86_64.dmg).
 
-https://releases.hashicorp.com/vagrant/2.0.1/vagrant_2.0.1_x86_64.dmg
+# Creating the Container
 
-## Setup Vagrant Singularity VM
+The workflow for creating a Singularity container on a Mac through Vagrant is saved in the included `Makefile`.
 
-Start the Vagrant VM and `ssh` into it
+Make the container by running:
 
 ```bash
-mkdir singularity-vm
-cd singularity-vm
-
-vagrant init singularityware/singularity-2.4
-vagrant up
-vagrant ssh
+make container
 ```
 
-## Creating the Container
-
-Build the included `samtools` recipe
+And run a test on the created container with
 
 ```bash
-git clone https://github.com/stevekm/singularity-samtools-demo.git
-
-cd singularity-samtools-demo
-
-sudo singularity build singularity-container-samtools Singularity
+make test
 ```
 
-## Running the Container Application
+## Output
 
-```bash
-singularity exec singularity-container-samtools samtools --version
-# samtools 1.6
-# Using htslib 1.6
-# Copyright (C) 2017 Genome Research Ltd.
+If everything worked, the following files should be created:
 
-singularity exec singularity-container-samtools samtools view input/HapMap-B17-1267.bam
+- `singularity-vm/image/singularity-container-samtools`: the Singularity container file for samtools
+
+- `singularity-vm/image/samtools-version.txt`: the output from running samtools inside the container, should look like this:
+
 ```
-
-
-# Notes
-
-Need to figure out how to deal with binding paths... 
-
-```bash
-singularity exec singularity-container-bwa bwa mem -M -v 1 ./hg19_genome.fa NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R1_001.fastq.gz NGS580-demo-data/fastq/HapMap-B17-1267_S8_L001_R2_001.fastq.gz
- singularity shell -B /data:./ singularity-container-bwa
+samtools 1.6
+Using htslib 1.6
+Copyright (C) 2017 Genome Research Ltd.
 ```
 
 # Resources
 
+http://singularity.lbl.gov/install-mac
+
 https://app.vagrantup.com/singularityware/boxes/singularity-2.4
+
+https://releases.hashicorp.com/vagrant/2.0.1/vagrant_2.0.1_x86_64.dmg
 
 http://singularity.lbl.gov/docs-build-container
 
 http://singularity.lbl.gov/docs-recipes
 
-
 https://github.com/qbicsoftware/qbic-singularity-samtools
-
-
-some container collections here
-
-https://singularity-hub.org/u/apeltzer
-
-https://singularity-hub.org/collections/93
